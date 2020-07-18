@@ -1,0 +1,14 @@
+<div class="card my-4">
+    <h5 class="card-header">Buscar</h5>
+    <div class="card-body">
+        <form action="{% url 'blog:search-post' %}" method="POST">
+            <div class="input-group">
+                {% csrf_token %}
+                <input type="text" class="form-control" placeholder="Ingrese una palabra" name="post_name">
+                <span class="input-group-btn">
+                    <button class="btn btn-secondary" type="submit">Buscar</button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>

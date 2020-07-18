@@ -1,0 +1,54 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="my-0">&nbsp;</div>
+                {% for post in posts %}
+                    <div class="card mb-4">
+                        <img class="card-img-top" src="{{ post.image_post.url }}">
+                        <div class="card-body">
+                            <h2 class="card-title">
+                                <a style="text-decoration: none;"
+                                    href="{% url 'blog:post-detail' post.category.name post.slug %}">
+                                    {{ post.title }}
+                                </a>
+                            </h2>
+                            <p class="card-text">{{ post.content|slice:"0:300" }}...</p>
+                            <a style="text-decoration: none;"
+                                href="{% url 'blog:post-detail' post.category.name post.slug %}">
+                                Leer Más
+                            </a>
+                        </div>
+                        <div class="card-footer text-muted">
+                            Publicado {{ post.pub_date }} | 
+                            <a>
+                                {{ post.user.username }} -  {{ post.category.name }}
+                            </a>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="card mb-4">
+                        <img class="card-img-top img-responsive" src="{% static 'static/images/posts_empty.png' %}">
+                        <div class="card-body">
+                            <h2 class="card-title text-center mt-4">
+                                No hay posts creados
+                            </h2>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-md-4">
+                <!-- Search Widget -->
+                {% include 'blog/utils/search.html' %}
+
+                <!-- Categories Widget -->
+                {% include 'blog/utils/categories.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
